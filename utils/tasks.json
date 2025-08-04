@@ -1,0 +1,42 @@
+{
+  "Daily reward": [
+    {
+      "id": 1,
+      "icon": "1.png",
+      "title": "Daily",
+      "status": "waiting",
+      "type": "daily",
+      "value": null
+    }
+  ],
+  "Tasks list": [
+    {
+      "id": 2,
+      "icon": "2.svg",
+      "title": "Join our TG channel",
+      "status": "waiting",
+      "type": "channel",
+      "channel": "https://t.me/durov",
+      "channel_id": "-1002007115352",
+      "value": 50000
+    },
+    {
+      "id": 3,
+      "icon": "3.svg",
+      "title": "Follow us on Instagram",
+      "status": "waiting",
+      "type": "link",
+      "link": "https://www.instagram.com/word.community/",
+      "value": 50000
+    },
+    {
+      "id": 4,
+      "icon": "4.svg",
+      "title": "Follow our X account",
+      "status": "waiting",
+      "type": "link",
+      "link": "https://twitter.com/PlatformWord",
+      "value": 50000
+    }
+  ]
+}
