@@ -46,6 +46,8 @@ async def start_server(tg: TaskGroup, server: Callable[[], Awaitable]):
 
 
 async def start_bot(tg: TaskGroup, _bot: Bot):
+    await _bot.delete_webhook(drop_pending_updates=True)
+    
     await _bot.set_chat_menu_button(
         menu_button=MenuButtonWebApp(
             text="play",

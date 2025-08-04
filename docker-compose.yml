@@ -1,14 +1,42 @@
 version: "3.8"
 
 services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_DATABASE=app
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - MINIO_HOST=minio
+      - MINIO_PORT=9000
+      - S3_ENDPOINT=http://minio:9000
+      - S3_BUCKET=default
+      - S3_ACCESS=admin
+      - S3_SECRET=adminadmin
+      - DATABASE_URL=postgresql://postgres:password@db:5432/app
+      - REDIS_URL=redis://redis:6379
+      - TG_BOT_TOKEN=${TG_BOT_TOKEN}
+    depends_on:
+      - db
+      - redis
+      - minio
+    volumes:
+      - .:/src
+
   db:
     image: postgres:15
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_DATABASE}
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=app
     ports:
       - "5433:5432"
 
