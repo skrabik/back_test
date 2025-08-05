@@ -4,7 +4,7 @@ services:
   app:
     build: .
     ports:
-      - "8000:8000"
+      - "4000:8000"
     environment:
       - DB_HOST=db
       - DB_PORT=5432
@@ -21,7 +21,7 @@ services:
       - S3_SECRET=adminadmin
       - DATABASE_URL=postgresql://postgres:password@db:5432/app
       - REDIS_URL=redis://redis:6379
-      - TG_BOT_TOKEN=${TG_BOT_TOKEN}
+      - DOMAIN=http://localhost:8000
     depends_on:
       - db
       - redis

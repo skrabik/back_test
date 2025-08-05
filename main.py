@@ -4,13 +4,11 @@ from typing import Callable, Awaitable
 
 import anyio
 import uvicorn
-from aiogram import Bot
-from aiogram.types import MenuButtonWebApp, WebAppInfo
 from anyio.abc import TaskGroup
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from bot.bot import dp, bot
+
 from core import settings
 from endpoint.http import router
 from utils.get_token_price import task_get_token_price
@@ -45,17 +43,7 @@ async def start_server(tg: TaskGroup, server: Callable[[], Awaitable]):
     tg.cancel_scope.cancel()
 
 
-async def start_bot(tg: TaskGroup, _bot: Bot):
-    await _bot.delete_webhook(drop_pending_updates=True)
-    
-    await _bot.set_chat_menu_button(
-        menu_button=MenuButtonWebApp(
-            text="play",
-            web_app=WebAppInfo(url=settings.DOMAIN)
-        )
-    )
-    await dp.start_polling(_bot)
-    tg.cancel_scope.cancel()
+
 
 
 async def start_get_token_price(tg: TaskGroup):
@@ -70,7 +58,6 @@ async def start_scheduler_games(tg: TaskGroup):
 
 async def main():
     async with anyio.create_task_group() as tg:
-        tg.start_soon(start_bot, tg, bot)
         tg.start_soon(start_server, tg, server.serve)
         tg.start_soon(start_get_token_price, tg)
         tg.start_soon(start_scheduler_games, tg)
